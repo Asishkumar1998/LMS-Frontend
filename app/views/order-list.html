@@ -1,0 +1,91 @@
+
+<div class="p-3">
+    <h2 class="mb-4">Orders List</h2>
+
+    <!-- Filters -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <input type="text" ng-model="searchText" class="form-control" style="width: 30%;" placeholder="Search by username or book title">
+    </div>
+
+    <!-- Orders Table -->
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Username</th>
+                <th>Total Items</th>
+                <th>Books</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="order in filteredOrders = (orders | orderBy:'-id' | filter:searchFilter) | limitTo:itemsPerPage:(currentPage-1)*itemsPerPage track by order.id">
+                <td>{{order.id}}</td>
+                <td>{{order.user.profile.fullName}}</td>
+                <td>{{getTotalItems(order.items)}}</td>
+                <td>
+                    <ul>
+                        <li ng-repeat="item in order.items">
+                            {{item.book.title}} - Qty: {{item.quantity}}
+                        </li>
+                    </ul>
+                </td>
+                <td>
+                    <button class="btn btn-sm btn-primary btn-xs" ng-click="viewOrderDetails(order.id)">View</button>
+                </td>
+            </tr>
+            <tr ng-if="filteredOrders.length === 0">
+                <td colspan="5" class="text-center text-muted">No orders found</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="text-center mt-2">
+        <button class="btn btn-default" ng-click="prevPage()" ng-disabled="currentPage==1">Prev</button>
+        Page {{currentPage}} of {{totalPages()}}
+        <button class="btn btn-default" ng-click="nextPage()" ng-disabled="currentPage==totalPages()">Next</button>
+    </div>
+
+    <!-- Order Details Modal -->
+<div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="orderModalLabel">Order Details - #{{selectedOrder.id}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ng-click="closeModal()"></button>
+      </div>
+      <div class="modal-body" ng-if="selectedOrder">
+        <p><strong>Order Date:</strong> {{selectedOrder.createdAt | date:'medium'}}</p>
+        <p><strong>User:</strong> {{selectedOrder.user.profile.fullName}} ({{selectedOrder.user.email}})</p>
+        <p><strong>Contact:</strong> {{selectedOrder.user.contactNo}}</p>
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Book Title</th>
+              <th>Author</th>
+              <th>Quantity</th>
+              <th>Tags</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in selectedOrder.items">
+              <td>{{item.book.title}}</td>
+              <td>{{item.book.author.name}}</td>
+              <td>{{item.quantity}}</td>
+              <td>
+                <span ng-repeat="tag in item.book.bookTags">{{tag.tagName}}{{$last ? '' : ', '}}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" ng-click="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>

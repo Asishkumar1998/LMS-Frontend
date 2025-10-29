@@ -1,0 +1,53 @@
+<div class="container">
+    <h2 class="text-center mb-4">{{book.id ? "Edit Book":"Add New Book"}}</h2>
+    <form name="bookForm" novalidate ng-submit="saveBook(bookForm)" class="p-4 border rounded" style="border-radius: 25px;">
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label class="form-label fw-bold">Book Title:</label>
+                <input type="text"name="title" ng-model="book.title" class="form-control" placeholder="Book Name" duplicate-book-name="books" required>
+                 <span class="text-danger" ng-show="(bookForm.title.$touched || submitted) && bookForm.title.$invalid">
+                <span ng-show="bookForm.title.$error.required">Title cannot be empty.</span>
+                <!-- <span ng-show="bookForm.title.$error.duplicateBook">This book title already exists.</span> -->
+                 <span ng-show="bookForm.title.$error.duplicateName">This book title already exists.</span>
+            </span>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-bold"> Author:</label>
+                <select class="form-control mb-2" name="author" ng-model="book.authorId"
+                required>
+                    <option value="" disabled>--Select Author--</option>
+                    <option ng-repeat="author in authors" ng-value="author.id">{{author.name}}</option>
+                </select>
+                <span class="text-danger" ng-show="(bookForm.author.$touched || submitted) && bookForm.author.$invalid">
+                <span ng-show="bookForm.author.$error.required">Author is required.</span>
+            </span>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-bold">Genre(s):</label>
+                <select class="form-control mb-2" name="genre" ng-model="book.genreId"
+                required>
+                     <option value="" disabled>-- Select Genre --</option>
+                     <option ng-repeat="genre in genres" ng-value="genre.id">
+                        {{ genre.name }}
+                     </option>
+                </select>
+                
+                <span class="text-danger" ng-show="(bookForm.genre.$touched || submitted) && bookForm.genre.$invalid">
+                <span ng-show="bookForm.genre.$error.required">Genre is required.</span>
+            </span>
+            </div> 
+
+           
+
+
+
+
+
+        </div>
+
+        <div class="d-flex justify-content-center mt-4 gap-2">
+            <button type="submit" class="btn btn-success">{{book.id ? 'Update':'Add'}}</button>
+            <button type="button" class="btn btn-secondary" ng-click="goToBook()">Cancel</button>
+        </div>
+    </form>
+</div>

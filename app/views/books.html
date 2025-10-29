@@ -1,0 +1,120 @@
+<div class="p-3">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="m-0">Book Management</h2>
+  </div>
+
+  <!-- Search and Add -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <input
+      type="text"
+      ng-model="searchText"
+      class="form-control w-25"
+      placeholder="Search by title, author, or genre"
+      ng-change="applyFilter()"
+    />
+    <button class="btn btn-success" ng-click="goToAddBook()">Add Book</button>
+  </div>
+
+  <!-- Table -->
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Genres</th>
+        
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        ng-repeat="book in filteredBooks | limitTo: itemsPerPage : (currentPage - 1) * itemsPerPage track by book.id"
+      >
+        <td>{{ book.id }}</td>
+        <td>{{ book.title }}</td>
+        <td>{{ book.author.name }}</td>
+        <td>
+          <span
+            ng-repeat="tag in book.bookTags"
+            class="badge text-dark me-1"
+            style="border: 1px solid black;"
+          >
+            {{ tag.tagName }}
+          </span>
+        </td>
+        
+        <td class="d-flex gap-2">
+          <button
+            class="btn btn-warning btn-xs"
+            ng-click="goToEditBook(book.id)"
+          >
+            Edit
+          </button>
+          <button
+            class="btn btn-danger btn-xs"
+            ng-click="deleteBook(book.id)"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+      <tr ng-if="filteredBooks.length === 0">
+    <td colspan="5" class="text-center text-muted">No records found</td>
+  </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <div class="text-center">
+    <button
+      class="btn btn-default"
+      ng-click="prevPage()"
+      ng-disabled="currentPage === 1"
+    >
+      Prev
+    </button>
+    Page {{ currentPage }} of {{ totalPages() }}
+    <button
+      class="btn btn-default"
+      ng-click="nextPage()"
+      ng-disabled="currentPage === totalPages()"
+    >
+      Next
+    </button>
+  </div>
+
+  <!-- Add/Edit Form -->
+  <div ng-if="showAddForm" class="mt-4">
+    <h3>{{ editingBook ? 'Edit Book' : 'Add Book' }}</h3>
+    <form ng-submit="saveBook()">
+      <input
+        type="text"
+        class="form-control mb-2"
+        ng-model="editingBook.title"
+        placeholder="Title"
+        required
+      />
+      <input
+        type="number"
+        class="form-control mb-2"
+        ng-model="editingBook.authorId"
+        placeholder="Author ID"
+        required
+      />
+      <input
+        type="text"
+        class="form-control mb-2"
+        ng-model="editingBook.tagName"
+        placeholder="Genre (Tag Name)"
+      />
+
+      <button type="submit" class="btn btn-success">
+        {{ editingBook.id ? 'Update' : 'Add' }}
+      </button>
+      <button type="button" ng-click="toggleAddForm()" class="btn btn-default">
+        Cancel
+      </button>
+    </form>
+  </div>
+</div>

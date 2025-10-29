@@ -1,0 +1,39 @@
+
+<style>
+  [ng-cloak] {display: none!important;}
+</style>
+<div class="container mt-5" ng-controller="ActivateUserController" ng-cloak>
+  <div ng-if="initializing" class="text-center">
+    <p style="color: green; font-weight: bold;">Loading...</p>
+  </div>
+  
+  <h2 ng-if="showPasswordForm" class="text-center mb-4">Activate Your Account</h2>
+
+  <div ng-if="loading" class="text-center">
+    <strong style="color: green;">Checking activation link...</strong>
+  </div>
+
+  <form ng-if="!loading && showPasswordForm" name="activateForm" ng-submit="submitPassword()" class="p-4 border rounded" style="max-width: 400px; margin: auto;">
+    <div class="mb-3">
+      <label><strong>New Password:</strong></label>
+      <input type="password" class="form-control" ng-model="formData.password" required />
+    </div>
+
+    <div class="mb-3">
+      <label><strong>Confirm Password:</strong></label>
+      <input type="password" class="form-control" ng-model="formData.confirmPassword" required />
+    </div>
+
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary" ng-disabled="loading">Set Password</button>
+    </div>
+  </form>
+
+  <div class="text-center mt-3" ng-if="message">
+      <p style="color: green;">{{message}}</p>
+    </div>
+
+    <div class="text-center mt-3" ng-if="error">
+      <p style="color: red;">{{error}}</p>
+    </div>
+</div>

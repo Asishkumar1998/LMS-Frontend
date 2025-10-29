@@ -1,0 +1,37 @@
+<div class="p-3">
+    
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-4">Book Shop</h3>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+         <a href="#!/carts" class="position-relative">
+            <i class="fa fa-shopping-cart" style="color: black; font-size: 25px;"></i>
+            <!-- <span class="menu-text" ng-show="!isCollapsed">Cart</span> -->
+            <!-- Cart Count -->
+            <span class="badge bg-danger position-absolute top-0 start-100 translate-middle"
+                ng-if="cartCount > 0">{{ cartCount }}</span>
+        </a>
+        <div></div>
+    </div>
+    <!-- Books List -->
+     <div class="row">
+        <div class="col-md-4 mb-3" ng-repeat="book in books">
+            <div class="card p-2">
+                <h5 class="text-center" style="font-weight: bold;">{{book.title}}</h5>
+                <p class=""><b>Author: </b>{{book.author.name}}</p>
+                <p>
+                    <b>Genre(s):</b>
+                    <span ng-repeat="tag in book.bookTags" class="badge badge-sm bg-secondary me-1">{{tag.tagName}}</span>
+                </p>
+                <div class="d-flex justify-content-center align-items-center gap-2 mt-3">
+                    <input type="number" class="form-control form-control-sm" style="width:60px;" ng-model="book.quantity" min="1" placeholder="Qty">
+                    <button class="btn btn-success btn-sm" ng-click="addToOrder(book)">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+     </div>
+
+</div>

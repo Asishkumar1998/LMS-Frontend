@@ -1,0 +1,104 @@
+<div class="">
+    <h3>Carts List</h3>
+    
+    <div class="d-flex justify-content-between">
+        <div class="w-100">
+
+        </div>
+        <div class="d-flex justify-content-end gap-2 bg-inf w-100" ng-if="cartItems.length!=0">
+            <div>
+                <button class="btn btn-sm btn-success" ng-click="confirmSelectedOrders()">
+                    Confirm Order
+                </button>
+            </div>
+            <div>
+                <button class="btn btn-sm btn-danger" ng-click="deleteSelectedOrders()">
+                        Delete Selected
+                </button>
+            </div>
+        </div>
+        <div class="" style="width: 31%"></div>
+    </div>
+
+    <div ng-if="cartItems.length===0" class="text-muted" style="text-align: center;">No Order yet</div>
+
+
+    <div class="d-flex justify-content-center align-items-center row mt-4" ng-if="cartItems.length>0" style="width: 90%;margin-left: 5%;">
+        
+        <div class="col-md-10 mb-3" ng-repeat="items in cartItems track by $index">
+          
+            <div class="card shadow-sm" ng-class="{'selected-card': items.selected}" style="transition: all 0.3s ease;">
+                <div class="card-header bg-info">
+                    <strong>Order #{{items.book.id}}</strong>
+                    <span class="float-end" style="font-weight: bold;">{{items.createdAt | date:'medium'}}</span>
+
+                </div>
+
+                <div class="card-body">
+                    <div class="mb-">
+                        <div class="">
+                            <div class="d-flex justify-content-between ">
+                                <div class="w-100"></div>
+                                <div class=" mx-2 w-100"><h4 style="text-align: center; width: 100%;">{{items.book.title}}</h6></div>
+                                <div class="d-flex justify-content-end gap-3  w-100">
+                                    <div style="margin-top: 2px;">
+                                        <input type="checkbox"
+                                    ng-model="items.selected"
+                                    class="form-check-inpu"
+                                    title="select"
+                                    style=" transform: scale(1.3); cursor:pointer; ">
+                                    </div>
+                                
+                                    <div>
+                                        <i class="fa fa-trash text-danger"
+                               style="cursor: pointer; "
+                               ng-click="deleteOrder(items.book.id)"></i>
+                                    </div>
+
+                            </i>
+
+                                 </div>
+                            </div>
+                            <p class="text-mute"><strong>Author:</strong> {{items.book.author.name}}</small>
+                                <p class="text-mute"><strong>Genre:</strong>{{items.book.bookTags[0].tagName}}</small>
+                            <p class="text-mute"><strong>Quantity:</strong> {{items.quantity}}</small>
+                        </div>
+                       
+
+                        <!-- <div ng-if="order.showMore" class="row mt-3 border-top pt-3 mb-4">
+                            
+                            <div class="col">
+                                <h5 style="text-align: center; font-weight: bold;">User Details</h6>
+                                <hr>
+                            <p><strong>Name: </strong>{{order.user.profile.fullName}}</p>
+                            <p><strong>Email: </strong>{{order.user.email}}</p>
+                            <p><strong>Contact: </strong> {{order.user.contactNo}}</p>
+                            <p><strong>Place: </strong>{{order.user.profile.place}}</p>
+                            </div>
+                                
+                            <div ng-repeat="item in order.items" class="col">
+                                <h5 style="text-align: center; font-weight: bold; ">Book Details</h6>
+                                <hr>
+                                <p><strong>Book Title: </strong>{{item.book.title}}</p>
+                                <p><strong>Author: </strong>{{item.book.author.name}}</p>
+                                <p><strong>Quantity: </strong>{{item.quantity}}</p>
+                            </div>
+                            
+                        </div> -->
+
+                        
+                    </div>
+                    
+
+                </div>
+                <div class="card-footer text-center">
+                    <span class="badge bg-success">Total Items: {{items.quantity}}</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- <div class="d-flex justify-content-center align-items-center mt-5">asish</div> -->
+</div>

@@ -1,0 +1,70 @@
+<div class="position-relative" style="height: 94vh;">
+  <div class="card shadow-lg p-4 position-fixed top-50 start-50 translate-middle"
+       style="width: 100%; max-width: 400px; border-radius: 15px;">
+       
+    <h3 class="text-center mb-4 fw-bold text-primary">Login</h3>
+
+    <form name="loginForm" novalidate ng-submit="loginUser(loginForm)">
+      
+      <!-- Email Field -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Email</label>
+        <input
+          type="email"
+          name="email"
+          class="form-control form-control-lg"
+          ng-model="user.email"
+          placeholder="Enter your email"
+          required
+        />
+
+        <div class="text-danger mt-1" 
+             ng-show="(loginForm.email.$touched || submitted) && loginForm.email.$invalid">
+          <span ng-show="loginForm.email.$error.required">Email is required.</span>
+          <span ng-show="loginForm.email.$error.email">Please enter a valid email address.</span>
+        </div>
+      </div>
+
+      <!-- Password Field -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Password</label>
+        <input
+          type="password"
+          name="password"
+          class="form-control form-control-lg"
+          ng-model="user.password"
+          placeholder="Enter your password"
+          required
+          minlength="6"
+        />
+
+        <div class="text-danger mt-1"
+             ng-show="(loginForm.password.$touched || submitted) && loginForm.password.$invalid">
+          <span ng-show="loginForm.password.$error.required">Password is required.</span>
+          <span ng-show="loginForm.password.$error.minlength">Password must be at least 6 characters.</span>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary w-100 btn-lg mt-3" ng-disabled="loading">
+        <span ng-if="!loading">Login</span>
+        <span ng-if="loading">
+          <i class="fa fa-spinner fa-spin"></i> Logging in...
+        </span>
+      </button>
+      <!-- <div class="text-center mt-3">
+        <span>New User? Register
+          <a href="#!/add-user" class="text-primary fw-semibold text-decoration-none">here</a>
+        </span>
+
+      </div> -->
+      
+
+      <!-- Error message from backend -->
+      <div class="mt-3 text-center text-danger fw-semibold" ng-if="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+    </form>
+  </div>
+</div>

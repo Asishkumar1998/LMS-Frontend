@@ -1,0 +1,14 @@
+
+<div class="modal-header" ng-class="{'bg-success': type==='success', 'bg-danger': type==='error'}">
+  <h4 class="modal-title text-white">{{title}}</h4>
+</div>
+
+<div class="modal-header text-center">
+  <p class="lead" ng-class="{'text-success': type==='success', 'text-danger': type==='error'}">
+    {{message}}
+  </p>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-primary" ng-click="close()">OK</button>
+</div>

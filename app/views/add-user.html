@@ -1,0 +1,100 @@
+<div class="container">
+    <h2 class="text-center mb-4">{{newUser.id ?'Edit the User':'Add New User'}}</h2>
+    <div ng-if="loading"><strong style="color: green;">loading...</strong></div>
+    <form name="userForm" novalidate ng-submit="newUser.id?saveUser(userForm):addUser(userForm)" class="p-4 border rounded" style="border-radius: 25px;">
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label class="form-label fw-bold">First Name:</label>
+                <input type="text" name="firstName" ng-model="newUser.profile.firstName" class="form-control" placeholder="First Name" duplicate-name="users" required>
+                <span class="text-danger" ng-show="(userForm.firstName.$touched || submitted)&& userForm.firstName.$invalid">
+                        <span ng-show="userForm.firstName.$error.required">First Name cannot be empty.</span>
+                        <span ng-show="userForm.firstName.$error.onlyLetters">Only letters are allowed.</span>
+                        <!-- <span ng-show="userForm.firstName.$error.duplicateName">This first name already exists.</span> -->
+
+               </span>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label fw-bold">Last Name:</label>
+                <input type="text" name="lastName" ng-model="newUser.profile.lastName" class="form-control" placeholder="Last Name" only-letters required>
+                <span class="text-danger" ng-show="(userForm.lastName.$touched || submitted) && userForm.lastName.$invalid">
+                        <span ng-show="userForm.lastName.$error.required">Last Name cannot be empty.</span>
+                        <span ng-show="userForm.lastName.$error.onlyLetters">Only letters are allowed.</span>
+               </span>
+            </div>
+
+            <!-- <div class="col-md-4">
+                <label class="form-label fw-bold">Full Name:</label>
+                <input type="text" ng-model="newUser.Profile.fullName" class="form-control" placeholder="Full Name" required>
+            </div> -->
+
+            <div class="col-md-4">
+                <label class="form-label fw-bold">Contact No:</label>
+                <input type="text"name="phoneNo" ng-model="newUser.contactNo" class="form-control" placeholder="Enter Contact Number" validPhone duplicate-contact="users" required ng-minlength="10" ng-maxlength="10">
+                <span class="text-danger" ng-show="(userForm.phoneNo.$touched || submitted) && userForm.phoneNo.$invalid">
+                        <span ng-show="userForm.phoneNo.$error.required">phoneNo cannot be empty.</span>
+                        <span ng-show="userForm.phoneNo.$error.validPhone">Only number are allowed.</span>
+                        <span ng-show="userForm.contactNo.$error.unique">This contact number already exists.</span>
+                        <span ng-show="userForm.phoneNo.$error.minlength || userForm.phoneNo.$error.maxlength">
+                            Contact number must be exactly 10 digits.
+                        </span>
+                        <span ng-show="userForm.phoneNo.$error.duplicateContact"> contact number already exists.</span>
+
+                        
+               </span>
+                <!-- Validation messages -->
+                <!-- <div class="text-danger mt-1" ng-show="userForm.contactNo.$touched && userForm.contactNo.$invalid">
+                    <span ng-show="userForm.contactNo.$error.required">Contact Number is required.</span>
+                    <span ng-show="userForm.contactNo.$error.minlength">Contact Number must be at least 10 digits.</span>
+                    <span ng-show="userForm.contactNo.$error.pattern">Contact Number must contain only digits.</span>
+                </div> -->
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label fw-bold">Email:</label>
+                <input type="email" name="email" ng-model="newUser.email" class="form-control" placeholder="Enter Email" duplicate-name="users" required ng-disabled="newUser.id" ng-class="{'email-disabled':newUser.id}">
+                <span class="text-danger" ng-show="(userForm.email.$touched || submitted) && userForm.email.$invalid">
+                    <span ng-show="userForm.email.$error.required">Email cannot be empty.</span>
+                    <span ng-show="userForm.email.$error.email">Please enter a valid email address.</span>
+                    <span ng-show="userForm.email.$error.duplicateName">This email already exists.</span>
+
+                </span>
+            </div>
+
+            <!-- <div class="col-md-4" ng-if="newUser.id || newUser.status">
+    <label class="form-label fw-bold">Status:</label>
+    <select ng-model="newUser.status"
+            class="form-select"
+            ng-options="status.id as status.name for status in statusOptions"
+            required>
+    </select>
+</div> -->
+            <div class="col-md-4" ng-if="newUser.id || newUser.status">
+                <label class="form-label fw-bold">Status:</label>
+                <select ng-model="newUser.status" class="form-select" ng-options="status.id as status.name for status in statusOptions" required>
+
+                </select>
+
+            </div>
+
+
+
+            <div class="col-md-4">
+                <label class="form-label fw-bold">Place:</label>
+                <input type="text" name="text" ng-model="newUser.profile.place" class="form-control" placeholder="Place" required>
+                <span class="text-danger" ng-show="(userForm.text.$touched || submitted) && userForm.text.$invalid">
+                    <span ng-show="userForm.text.$error.required">text cannot be empty.</span>
+                    <!-- <span ng-show="userForm.text.$error.text">Please enter a valid email address.</span> -->
+                </span>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center mt-4 gap-2">
+            <button type="submit" class="btn btn-success" ng-disabled="loading" >{{newUser.id ? 'Update':'Add'}}</button>
+            <button type="button" class="btn btn-success" ng-if="newUser.status===1" ng-click="resendLink(newUser.email)" ng-disabled="loading">
+        Re-send Invite
+    </button>
+            <button type="button" class="btn btn-secondary" ng-click="cancel()" ng-disabled="loading">Cancel</button>
+        </div>
+    </form>
+</div>

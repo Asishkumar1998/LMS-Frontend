@@ -1,0 +1,81 @@
+<!-- <h2>Page 1</h2>
+<p>{{ message }}</p>
+<a href="#!/page2">Go to Page 2</a> -->
+
+
+<!-- <div>
+  <h2>User Management</h2>
+
+  <form ng-submit="editIndex === -1 ? addUser() : updateUser()" class="form-inline">
+    <input type="text" class="form-control" ng-model="newUser.name" placeholder="Name" required>
+    <input type="email" class="form-control" ng-model="newUser.email" placeholder="Email" required>
+    
+    <button type="submit" class="btn btn-success" ng-if="editIndex === -1">Add</button>
+    <button type="submit" class="btn btn-primary" ng-if="editIndex !== -1">Update</button>
+    <button type="button" class="btn btn-default" ng-click="cancelEdit()" ng-if="editIndex !== -1">Cancel</button>
+  </form>
+
+  <hr>
+
+  <table class="table table-bordered table-striped">
+    <tr>
+      <th>#</th><th>Name</th><th>Email</th><th>Actions</th>
+    </tr>
+    <tr ng-repeat="user in users track by $index">
+      <td>{{$index + 1}}</td>
+      <td>{{user.name}}</td>
+      <td>{{user.email}}</td>
+      <td>
+        <button class="btn btn-warning btn-xs" ng-click="editUser($index)">Edit</button>
+        <button class="btn btn-danger btn-xs" ng-click="deleteUser($index)">Delete</button>
+      </td>
+    </tr>
+  </table>
+</div> -->
+
+
+<div class="p-3">
+  <div ng-if="loading">Loading users...</div>
+    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;margin-bottom: 2%;">
+    <h2 style="margin: 0;">User Management</h2>
+</div>
+
+    <!-- Search -->
+     <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <input type="text" ng-model="searchText" class="form-control" placeholder="Search Name or Email" style="margin-bottom:10px;">
+        </div>
+        <div>
+            <button class="btn btn-success" ng-click="goToAddUser()">Add User</button>
+        </div>
+     </div>
+
+    <!-- User Table -->
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>ID</th><th>Name</th><th>Email</th><th>Location</th><th>Status</th><th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in users | filter:searchText | limitTo:itemsPerPage:(currentPage-1)*itemsPerPage track by user.id">
+                <td>{{user.id}}</td>
+                <td>{{user.profile.fullName}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.profile.place}}</td>
+                <td>{{statusMap[user.status]}}</td>
+                <td class="d-flex gap-3">
+                    <button class="btn btn-warning btn-xs" ng-click="goToEditUser(user.id)">Edit</button>
+                    <button class="btn btn-danger btn-xs" ng-click="deleteUser(user.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="text-center">
+        <button class="btn btn-default" ng-click="prevPage()" ng-disabled="currentPage==1">Prev</button>
+        Page {{currentPage}} of {{totalPages()}}
+        <button class="btn btn-default" ng-click="nextPage()" ng-disabled="currentPage==totalPages()">Next</button>
+    </div>
+</div>

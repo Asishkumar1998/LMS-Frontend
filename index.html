@@ -1,0 +1,135 @@
+<!-- <!DOCTYPE html> -->
+<html lang="en" ng-app="myApp">
+<head>
+  <meta charset="UTF-8">
+  <title>LMS</title>
+
+  
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    
+
+
+
+      <!-- Font Awesome 6  -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- <script src="node_modules/angular/angular.min.js"></script> -->
+   <link rel="stylesheet" href="app/styles/style.css">
+</head>
+
+
+<body>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <!-- <script src="node_modules/angular-route/angular-route.min.js"></script> -->
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.20.0/select.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+      <!-- App Scripts -->
+  <script src="app/app.module.js"></script>
+  <script src="app/controllers/main.controller.js"></script>
+  <script src="app/controllers/UsersController.js"></script>
+  <script src="app/controllers/AddUserController.js"></script>
+  <script src="app/controllers/EditUserController.js"></script>
+  <script src="app/controllers/GenreController.js"></script>
+  <script src="app/controllers/AddBookController.js"></script>
+  <script src="app/controllers/EditBookController.js"></script>
+  <script src="app/controllers/AuthorController.js"></script>
+  <script src="app/controllers/EditAuthorController.js"></script>
+  <script src="app/controllers/BookController.js"></script>
+  <script src="app/controllers/OrderController.js"></script>
+  <script src="app/directive/validation.js"></script>
+  <script src="app/controllers/ActivateUserController.js"></script>
+  <script src="app/controllers/LoginController.js"></script>
+<script src="app/controllers/logOutController.js"></script>
+
+
+  <script src="app/services/UserService.js"></script>
+  <script src="app/services/AuthorService.js"></script>
+  <script src="app/services/BooksService.js"></script>
+  <script src="app/services/GenreService.js"></script>
+  <script src="app/services/OrderService.js"></script>
+  <script src="app/services/ConfirmedOrderService.js"></script>
+  <script src="app/services/CartService.js"></script>
+  <script src="app/services/modalService.js"></script>
+
+<div ng-if="$location.path() !=='/login'" class="top-bar d-flex justify-content-end align-items-center px-2 py-2 bg-light mx-2" ng-controller="logOutController" style=" z-index: 1000;">
+    <span ng-if="$root.currentUser" class="me-3 fw-semibold">Welcome, {{ currentUser.profile.firstName }}</span>
+</div>
+
+
+<div class="sidebar" ng-class="{'collapsed': isCollapsed}" ng-show="showSidebar">
+
+  <div class="hamburg-style py-3" ng-click="isCollapsed=!isCollapsed" style="cursor: pointer;">
+    <i class="fa-solid fa-bars toggle-icon"  >
+    </i>
+  </div>
+  <!-- <i class="fa-solid fa-user" ng-click="isCollapsed = !isCollapsed" style="font-size: xx-large;margin: 20%;"></i>  Font Awesome icon -->
+
+
+  <ul class="sidebar-menu list-unstyled mt-3 p-2">
+     <li ng-class="{'active':isActive('/users')}">
+      <a href="#!/users" title="Users">
+        <i class="fa-solid fa-users"></i>
+        <span class="menu-text" ng-show="!isCollapsed">Users</span>
+      </a>
+    </li>
+
+    <li ng-class="{'active':isActive('/books')}">
+      <a href="#!/books" title="Books">
+        <i class="fa-solid fa-book"></i>
+        <span class="menu-text" ng-show="!isCollapsed">Books</span>
+      </a>
+    </li>
+  
+    <li ng-class="{'active':isActive('/authors')}">
+      <a href="#!/authors" title="Authors">
+        <i class="fa-solid fa-feather"></i>
+        <span class="menu-text" ng-show="!isCollapsed">Authors</span>
+      </a>
+    </li>
+
+     <li ng-class="{'active':isActive('/genres')}">
+      <a href="#!/genres" title="Genres">
+        <i class="fa-solid fa-tags"></i>
+        <span class="menu-text" ng-show="!isCollapsed">Genre</span>
+      </a>
+    </li>
+
+    <li ng-class="{'active':isActive('/orders')}">
+      <a href="#!/orders" title="Book Shop">
+        <i class="fa-solid fa-shop"></i>
+        <span class="menu-text" ng-show="!isCollapsed">Book Shop</span>
+      </a>
+    </li>
+
+    <li ng-class="{'active':isActive('/orders-list')}">
+      <a href="#!/orders-list" title="Orders">
+        <i class="fa-solid fa-receipt"></i>
+        <span class="glyphicon glyphicon-shopping-cart"></span>
+        <span class="menu-text" ng-show="!isCollapsed">Orders</span>
+      </a>
+    </li>
+
+    <li>
+      <a href="" ng-click="logout()" title="Logout">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span class="menu-text" ng-show="!isCollapsed">logout</span>
+      </a>
+    </li>
+    
+   
+  </ul>
+</div>
+
+<div class="main-content" ng-class="{'collapsed-content': isCollapsed}">
+  <div ng-view></div>
+</div>
+
+  
+
+</body>
+</html>
