@@ -159,10 +159,12 @@ $scope.deleteUser=function(id){
       UserService.delete(id)
         .then(function(response){
           console.log("delete respone",response);
-          $scope.loadUsers();
+            ModalService.showMessage('success','User deleted successfully');
+            $scope.loadUsers();
         })
         .catch(function(error){
           console.error("Error deleting user:",error);
+          ModalService.showMessage('error',error.data.message || 'Failed to delete user!',5000);
         })
     }
   })
