@@ -59,6 +59,12 @@ console.log("editingGenre",$scope.editingGenre);
     if($scope.currentPage > 1) $scope.currentPage--;
   };
 
+  $scope.setPage=function(page){
+        if(page>=1 && page<=$scope.totalPages()){
+            $scope.currentPage=page;
+        }
+    };
+
   // $scope.toggleAddForm = function(){
   //   $scope.showAddForm = !$scope.showAddForm;
   //   // $scope.newGenre={name:""};
@@ -82,6 +88,20 @@ console.log("editingGenre",$scope.editingGenre);
     }
   }
 };
+
+$scope.getPageNumbers=function(){
+    var total=$scope.totalPages();
+    var current=$scope.currentPage;
+    var start=Math.max(current-2,1);
+    var end=Math.min(start+4,total);
+
+    start=Math.max(end-4,1);
+    var pages=[];
+    for(var i=start;i<=end;i++){
+        pages.push(i);
+    }
+    return pages;    
+}
 
 
   $scope.addGenre=function(form){

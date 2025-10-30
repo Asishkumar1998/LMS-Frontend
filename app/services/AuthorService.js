@@ -1,11 +1,12 @@
-app.factory("AuthorService",function($http){
+app.factory("AuthorService",function($http,API_BASE_URL){
     // let authors=[
     //     { id: 9, name: "J.K. Rowling", penName: "Robert Galbraith", books: [] },
     //     { id: 10, name: "George R.R. Martin", penName: "", books: [] },
     //     { id: 11, name: "Romario B. Dosel", penName: "Rose", books: [] }
     // ];
 
-    var baseUrl="http://localhost:5211/api/authors";
+    // var baseUrl="http://localhost:5211/api/authors";
+    var baseUrl=API_BASE_URL + "/authors";
 
     return {
         getAll:function(){

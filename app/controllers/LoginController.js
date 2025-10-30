@@ -1,4 +1,4 @@
-app.controller('LoginController',function($scope,$http,$location,$rootScope){
+app.controller('LoginController',function($scope,$http,$location,$rootScope,API_BASE_URL){
     $scope.user={};
     $scope.loading=false;
     $scope.errorMessage='';
@@ -27,7 +27,7 @@ app.controller('LoginController',function($scope,$http,$location,$rootScope){
         $scope.errorMessage='';
         if(loginForm && loginForm.$valid){
             $scope.loading=true;
-                $http.post('http://localhost:5211/api/auth/login',$scope.user)
+                $http.post(API_BASE_URL + '/auth/login',$scope.user)
             .then(function(response){
                 $scope.loading=false;
                 console.log("response formlogin",response.data);
@@ -41,7 +41,7 @@ app.controller('LoginController',function($scope,$http,$location,$rootScope){
 
                 const userId=userInfo.userId;
 
-                $http.get('http://localhost:5211/api/users/'+userId)
+                $http.get(API_BASE_URL + '/users/'+userId)
                 .then(function(resp){
                     const user=resp.data;
                     localStorage.setItem('currentUser',JSON.stringify(user));

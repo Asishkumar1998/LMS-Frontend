@@ -78,6 +78,12 @@ app.controller("AuthorController",function($scope,AuthorService,$location,ModalS
     if($scope.currentPage<$scope.totalPages()) $scope.currentPage++;
   }
 
+  $scope.setPage=function(page){
+        if(page>=1 && page<=$scope.totalPages()){
+            $scope.currentPage=page;
+        }
+    };
+
   $scope.applyFilter = function() {
         const text = $scope.searchText.toLowerCase();
         $scope.filteredAuthors = $scope.authors.filter(a =>
@@ -85,6 +91,20 @@ app.controller("AuthorController",function($scope,AuthorService,$location,ModalS
         );
         $scope.currentPage = 1;
     };
+
+    $scope.getPageNumbers=function(){
+    var total=$scope.totalPages();
+    var current=$scope.currentPage;
+    var start=Math.max(current-2,1);
+    var end=Math.min(start+4,total);
+
+    start=Math.max(end-4,1);
+    var pages=[];
+    for(var i=start;i<=end;i++){
+        pages.push(i);
+    }
+    return pages;    
+}
 
     // Watch search text changes automatically
     $scope.$watch('searchText', function(newVal, oldVal) {

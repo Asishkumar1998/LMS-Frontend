@@ -1,6 +1,6 @@
-app.factory("UserService",function($http){
+app.factory("UserService",function($http,API_BASE_URL){
     // var users=JSON.parse(localStorage.getItem("users")) || [];
-    var baseUrl="http://localhost:5211/api/users";
+    var baseUrl=API_BASE_URL + "/users";
 
     function save(){
         localStorage.setItem("users",JSON.stringify(users));

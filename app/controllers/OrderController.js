@@ -161,6 +161,12 @@ $scope.updateCartCount();
         if ($scope.currentPage > 1) $scope.currentPage--;
     };
 
+    $scope.setPage=function(page){
+        if(page>=1 && page<=$scope.totalPages()){
+            $scope.currentPage=page;
+        }
+    };
+    
     $scope.searchFilter = function(order) {
         if (!$scope.searchText) return true;
         const text = $scope.searchText.toLowerCase();
@@ -168,6 +174,20 @@ $scope.updateCartCount();
         const bookMatch = order.items.some(item => item.book.title.toLowerCase().includes(text));
         return usernameMatch || bookMatch;
     };
+
+    $scope.getPageNumbers=function(){
+    var total=$scope.totalPages();
+    var current=$scope.currentPage;
+    var start=Math.max(current-2,1);
+    var end=Math.min(start+4,total);
+
+    start=Math.max(end-4,1);
+    var pages=[];
+    for(var i=start;i<=end;i++){
+        pages.push(i);
+    }
+    return pages;    
+}
    
 
 

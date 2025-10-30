@@ -1,4 +1,4 @@
-app.factory("OrderService",function(BooksService,UserService,$http){
+app.factory("OrderService",function(BooksService,UserService,$http,API_BASE_URL){
 //     var orders=[
 //         {
 //             "id": 9,
@@ -31,7 +31,7 @@ app.factory("OrderService",function(BooksService,UserService,$http){
 //         }
 // ];
 
-var baseUrl="http://localhost:5211/api/orders";
+var baseUrl=API_BASE_URL + "/orders";
 
 
     function save(){

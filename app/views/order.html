@@ -15,9 +15,15 @@
         </a>
         <div></div>
     </div>
+    
+        <div class="mb-3" style="width: 35%;">
+            <input type="text" ng-model="searchText" class="form-control" style="border: 1px solid black;" placeholder="Search by Book name and Genre(S)" style="margin-bottom:10px;">
+        </div>
+    
     <!-- Books List -->
      <div class="row">
-        <div class="col-md-4 mb-3" ng-repeat="book in books">
+        <!-- ng-repeat="book in books | filter:searchText" -->
+        <div class="col-md-4 mb-3" ng-repeat="book in filteredBooks=(books | filter:searchText)">
             <div class="card p-2">
                 <h5 class="text-center" style="font-weight: bold;">{{book.title}}</h5>
                 <p class=""><b>Author: </b>{{book.author.name}}</p>
@@ -31,6 +37,8 @@
                 </div>
             </div>
         </div>
+
+        <div class="text-muted text-center" ng-if="filteredBooks.length===0">No books found</div>
 
      </div>
 

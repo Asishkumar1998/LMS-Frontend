@@ -25,7 +25,7 @@ app.controller("UsersController", function($scope,$location, UserService,ModalSe
   $scope.editingUser=null;
 
   $scope.currentPage=1;
-  $scope.itemsPerPage=10;
+  $scope.itemsPerPage=5;
 
   $scope.showAddForm=false;
   $scope.showTable=false;
@@ -81,6 +81,12 @@ $scope.goToEditUser = function(userId) {
     if($scope.currentPage<$scope.totalPages()) $scope.currentPage++;
   }
 
+  $scope.setPage=function(page){
+        if(page>=1 && page<=$scope.totalPages()){
+            $scope.currentPage=page;
+        }
+    };
+
   $scope.toggleAddForm=function(){
     $scope.showAddForm=!$scope.showAddForm;
     $scope.newUser={};
@@ -98,6 +104,20 @@ $scope.goToEditUser = function(userId) {
       $scope.showTable=true;
     }
   };
+
+  $scope.getPageNumbers=function(){
+    var total=$scope.totalPages();
+    var current=$scope.currentPage;
+    var start=Math.max(current-2,1);
+    var end=Math.min(start+4,total);
+
+    start=Math.max(end-4,1);
+    var pages=[];
+    for(var i=start;i<=end;i++){
+        pages.push(i);
+    }
+    return pages;    
+}
 
 
 

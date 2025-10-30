@@ -1,4 +1,4 @@
-app.factory("GenreService",function($http){
+app.factory("GenreService",function($http,API_BASE_URL){
     // var generes = [
     //     { id: 9, name: "Fantasy", bookTags: [] },
     //     { id: 10, name: "Adventure", bookTags: [] },
@@ -8,7 +8,7 @@ app.factory("GenreService",function($http){
     //     { id: 14, name: "Suspense", bookTags: [] }
     // ];
 
-    var baseUrl="http://localhost:5211/api/tags";
+    var baseUrl=API_BASE_URL + "/tags";
 
     function save(){
         localStorage.setItem("generes",JSON.stringify(generes));

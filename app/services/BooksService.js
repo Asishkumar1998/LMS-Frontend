@@ -1,5 +1,5 @@
-app.factory("BooksService",function($http){
-    var baseUrl="http://localhost:5211/api/books";
+app.factory("BooksService",function($http,API_BASE_URL){
+    var baseUrl=API_BASE_URL + "/books";
 
 
     // function save() {

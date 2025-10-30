@@ -1,4 +1,4 @@
-app.controller('ActivateUserController', function($scope, $http,$timeout,$location,UserService) {
+app.controller('ActivateUserController', function($scope, $http,$timeout,$location,UserService,API_BASE_URL) {
     $scope.initializing=true;
     $scope.loading = false;
     $scope.message = '';
@@ -37,13 +37,17 @@ app.controller('ActivateUserController', function($scope, $http,$timeout,$locati
 
     $timeout(function(){
 
-        $http.get('http://localhost:5211/api/users/validate-activation-token?token='+token)
+        $http.get(API_BASE_URL + '/users/validate-activation-token?token='+token)
     .then(function(response){
         console.log("validation api response",response.data);
 
         if(response.data.status==="alreadyActivated"){
-            $scope.message=response.data.message;
+            $scope.message=response.data.message +" .Redirecting to login...";
             $scope.showPasswordForm=false;
+            $timeout(function(){
+                $location.path("/login");
+            },3000);
+
         }
         else if(response.data.status==="invalid"){
             $scope.error=response.data.message;
@@ -88,7 +92,7 @@ app.controller('ActivateUserController', function($scope, $http,$timeout,$locati
         var payload = { token: token, password: $scope.formData.password };
         console.log("payload", payload);
         
-        $http.post('http://localhost:5211/api/auth/activate-and-set-password', payload)
+        $http.post(API_BASE_URL + '/auth/activate-and-set-password', payload)
         .then(function(response) {
             console.log("response", response.data);
             $scope.loading = false;

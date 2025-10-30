@@ -97,7 +97,42 @@ app.controller("BookController",function($scope,$location,BooksService,AuthorSer
                 tagNames.includes(text)
             );
         });
+
+        $scope.currentPage = 1;
     };
+    
+
+//     $scope.getPageNumbers = function() {
+//   var total = $scope.totalPages();
+//   var current = $scope.currentPage;
+//   var start = Math.max(current - 2, 1);
+//   var end = Math.min(start + 4, total);
+
+//   // Adjust start if near the end
+//   start = Math.max(end - 4, 1);
+
+//   var pages = [];
+//   for (var i = start; i <= end; i++) {
+//     pages.push(i);
+//   }
+//   return pages;
+// };
+
+$scope.getPageNumbers=function(){
+    var total=$scope.totalPages();
+    var current=$scope.currentPage;
+    var start=Math.max(current-2,1);
+    var end=Math.min(start+4,total);
+
+    start=Math.max(end-4,1);
+    var pages=[];
+    for(var i=start;i<=end;i++){
+        pages.push(i);
+    }
+    return pages;    
+}
+
+
 
     // Add new book
     $scope.newBook = { title: "", authorId: "", bookTags: [] };
